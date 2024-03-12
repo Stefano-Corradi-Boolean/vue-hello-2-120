@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css' integrity='sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==' crossorigin='anonymous'/>
+
+  <!-- Vue Js  -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>Vue Hello 2</title>
+
+</head>
+<body>
+
+  <!-- qui viene innestato Vue  -->
+  <div id="app">
+
+    <div v-if="isLoading" class="container px-5 ">
+      <div class="lds-facebook"><div></div><div></div><div></div></div>
+    </div>
+
+    <div v-else class="container my-5">
+      <!-- con v-show non posso avere v-else  -->
+      <h1 v-show="!isClicked">Non ho cliccato (v-show)</h1>
+      <h1 v-show="isClicked">Ho cliccato (v-show)</h1>
+      <!-- v-if mostra l'elemento se è vera la condizione  -->
+      <h1 v-if="!isClicked">Non ho cliccato (v-if)</h1>
+      <!-- il v-else deve essere consecutivo al v-if senza altri elementi in mezzo  -->
+      <h1 v-else>Ho cliccato (v-if)</h1>
+      <button @click="isClicked = !isClicked" class="btn btn-warning mb-3 ">toggle testo</button> <br>
+      <p v-if="counter % 2 === 0">Il numero {{ counter }} è pari</p>
+      <p v-else-if="counter % 3 === 0">Il numero {{ counter }} è divisibile per 3</p>
+      <p v-else>Il numero {{ counter }} non è pari e non è divisibile per tre</p>
+      <button @click="counter++" class="btn btn-warning ">contatore {{ counter }}</button>
+
+      <h3>Stampo l'array di colori</h3>
+      <ul>
+        <li v-for="colore in colori" >{{ colore }}</li>
+      </ul>
+
+      <input
+        v-model.trim="nuovoColore"
+        class="form-control"
+        placeholder="Nuovo colore"
+        type="text"
+        @keyup.enter="aggiungiColore"
+      >
+
+      <h3>Stampo l'array di colori con indice</h3>
+      <ul>
+        <li v-for="(colore, indice) in colori" >{{ colore }} indice: {{ indice }}</li>
+      </ul>
+
+      <h3>Stampo 10 numeri</h3>
+      <ul>
+        <li
+          v-for="numero in 10"
+        > {{ numero }} </li>
+      </ul>
+
+      <h3>Stampo i numeri pari fino a 10</h3>
+      <ul>
+        <!-- non posso mettere un v-if in un v-for  -->
+        <li v-for="numero in 10" v-show="numero % 2 === 0"> {{ numero }} </li>
+      </ul>
+
+      <h3>Stampo le pizze</h3>
+      
+      <div
+        v-for="pizza in pizze"
+        class="card mb-3"
+        style="width: 18rem;"
+      >
+        <div class="card-body">
+          <h5 class="card-title">{{ pizza.nome.toUpperCase() }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">€ {{pizza.prezzo.toFixed(2)}}</h6>
+          <ul class="list-group list-group-flush">
+            <li
+              v-for="ingrediente in pizza.ingredienti"
+              class="list-group-item"
+            >{{ ingrediente }}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    
+
+  </div>
+  
+  
+
+
+
+  <script src="js/script.js"></script>
+</body>
+</html>
